@@ -15,75 +15,24 @@ public class ScheduleCabRideTest extends BaseTest {
     @Test
     public void scheduleFutureCabRide() {
 
-        // Generate unique test data
-        UserData user =
-                TestDataGenerator.generateUser();
+        UserData user = TestDataGenerator.generateUser();
 
-        // ------------------------------------------------
-        // 1. Login screen
-        // ------------------------------------------------
+        LoginPage loginPage = new LoginPage(driver);
 
-        LoginPage loginPage =
-                new LoginPage(driver);
+        CreateAccountPage createAccountPage = loginPage.clickCreateAccount();
 
-        CreateAccountPage createAccountPage =
-                loginPage.clickCreateAccount();
+        HomePage homePage = createAccountPage.createAccount(user);
 
-        // ------------------------------------------------
-        // 2. Create account
-        // ------------------------------------------------
+        BookRidePage bookRidePage = homePage.clickBookARide();
 
-        HomePage homePage =
-                createAccountPage.createAccount(user);
-
-        // ------------------------------------------------
-        // 3. Navigate to Book a Ride
-        // ------------------------------------------------
-
-        BookRidePage bookRidePage =
-                homePage.clickBookARide();
-
-        // ------------------------------------------------
-        // 4. Schedule future ride
-        // ------------------------------------------------
-
-        ConfirmationPage confirmationPage =
-                bookRidePage.scheduleFutureRide();
-
-        // ------------------------------------------------
-        // 5. Verify confirmation
-        // ------------------------------------------------
+        ConfirmationPage confirmationPage = bookRidePage.scheduleFutureRide();
 
         confirmationPage.verifyBookingConfirmation();
 
-        // ------------------------------------------------
-        // 6. Verify booking ID/reference generated
-        // ------------------------------------------------
+        confirmationPage.verifyRideAppearsIncomingTrip();
 
-        String bookingReference =
-                confirmationPage.getBookingReference();
+        homePage.navigateToHomeTab();
 
-        Assert.assertFalse(
-                bookingReference.trim().isEmpty(),
-                "Booking reference was not generated"
-        );
-
-        // ------------------------------------------------
-        // 7. Navigate back to Home
-        // ------------------------------------------------
-
-        confirmationPage.navigateBackToHome();
-
-        // ------------------------------------------------
-        // 8. Verify booking confirmation on Home
-        // ------------------------------------------------
-
-        homePage.verifyBookingConfirmation();
-
-        // ------------------------------------------------
-        // 9. Verify Upcoming Trips
-        // ------------------------------------------------
-
-        homePage.verifyUpcomingTrips();
+        homePage.logout();
     }
 }

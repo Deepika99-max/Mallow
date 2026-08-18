@@ -8,4 +8,5 @@ public class ProfilePage extends BasePage {
     public ProfilePage(WebDriver driver) {
         super(driver);
     }
+
 }

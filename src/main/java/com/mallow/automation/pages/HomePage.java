@@ -8,45 +8,29 @@ import org.testng.Assert;
 
 public class HomePage extends BasePage {
 
-    private final By bookARideButton =
-            AppiumBy.androidUIAutomator(
-                    "new UiSelector().text(\"Book a ride\")"
-            );
-
-    private final By bookingConfirmation =
-            AppiumBy.androidUIAutomator(
-                    "new UiSelector().textContains(\"Booking confirmed\")"
-            );
-
-    private final By upcomingTrips =
-            AppiumBy.androidUIAutomator(
-                    "new UiSelector().text(\"Upcoming Trips\")"
-            );
+    private final By bookARideButton = AppiumBy.xpath("//android.view.View[@resource-id='dashboard_book_ride_btn']");
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
+    private final By homeTab = AppiumBy.xpath("//android.widget.TextView[@text='Home']");
+    private final By hamburgerIcon = AppiumBy.xpath("//android.view.View[@resource-id='dashboard_menu_btn']");
+    private final By logOut = AppiumBy.accessibilityId("drawer_logout_link");
+
+
     public BookRidePage clickBookARide() {
-
         click(bookARideButton);
-
         return new BookRidePage(driver);
     }
 
-    public void verifyBookingConfirmation() {
-
-        Assert.assertTrue(
-                isDisplayed(bookingConfirmation),
-                "Booking confirmation is not displayed on Home page"
-        );
+    public void navigateToHomeTab() {
+        click(homeTab);
     }
 
-    public void verifyUpcomingTrips() {
-
-        Assert.assertTrue(
-                isDisplayed(upcomingTrips),
-                "Upcoming Trips section is not displayed"
-        );
+    public void logout(){
+        click(hamburgerIcon);
+        click(logOut);
     }
+
 }

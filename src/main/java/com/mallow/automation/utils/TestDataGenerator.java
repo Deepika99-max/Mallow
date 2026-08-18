@@ -24,16 +24,14 @@ public class TestDataGenerator {
         String name =
                 AppConstants.DEFAULT_NAME;
 
-        String email =
-                "mallow" + uniqueId + "@gmail.com";
+        String email = "mallow" + uniqueId + "@gmail.com";
 
         String phone =
                 "9" + String.valueOf(
                         System.currentTimeMillis()
                 ).substring(3);
 
-        String password =
-                "Test@12345";
+        String password = "Test@12345";
 
         String department =
                 AppConstants.DEFAULT_DEPARTMENT;

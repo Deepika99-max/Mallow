@@ -8,17 +8,26 @@ import org.openqa.selenium.WebDriver;
 
 public class CreateAccountPage extends BasePage {
 
+    private final By emailID =
+            AppiumBy.xpath("//android.widget.EditText[@resource-id='login_email_input']");
+
+    private final By password =
+            AppiumBy.xpath("//android.widget.EditText[@resource-id='login_password_input']");
+
+    private final By getLogin =
+            AppiumBy.xpath("//android.view.View[@resource-id='login_submit_btn']");
+
     private final By nameField =
-            AppiumBy.id("createaccount_name");
+            AppiumBy.xpath("//android.widget.EditText[@resource-id='createaccount_name_input']");
 
     private final By employeeIdField =
             AppiumBy.xpath(
-                    "//android.view.View[@content-desc='createaccount_employee_id_input']"
+                    "//android.widget.EditText[@resource-id='createaccount_employee_id_input']"
             );
 
     private final By emailField =
             AppiumBy.xpath(
-                    "//android.view.View[@content-desc='createaccount_email_input']"
+                    "//android.widget.EditText[@resource-id='createaccount_email_input']"
             );
 
     private final By passwordField =
@@ -43,12 +52,12 @@ public class CreateAccountPage extends BasePage {
 
     private final By officeField =
             AppiumBy.xpath(
-                    "//android.view.View[@content-desc='createaccount_office_input']"
+                    "//android.widget.EditText[@resource-id='createaccount_office_input']"
             );
 
     private final By createAccountButton =
             AppiumBy.xpath(
-                    "//android.view.View[@content-desc='createaccount_submit_btn']"
+                    "//android.view.View[@resource-id='createaccount_submit_btn']"
             );
 
     public CreateAccountPage(WebDriver driver) {
@@ -58,6 +67,15 @@ public class CreateAccountPage extends BasePage {
     public void enterName(String name) {
 
         type(nameField, name);
+    }
+    public void setEmailID(String name) {
+
+        type(emailID, name);
+    }
+
+    public void setPassword(String name) {
+
+        type(password, name);
     }
 
     public void enterEmployeeId(String employeeId) {
@@ -98,6 +116,10 @@ public class CreateAccountPage extends BasePage {
     public void clickCreateAccount() {
 
         click(createAccountButton);
+    }
+    public void clickLogin() {
+
+        click(getLogin);
     }
 
     public HomePage createAccount(UserData user) {
