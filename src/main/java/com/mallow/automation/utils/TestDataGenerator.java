@@ -31,13 +31,16 @@ public class TestDataGenerator {
                         System.currentTimeMillis()
                 ).substring(3);
 
-        String password = "Test@12345";
+        String password = "Test@12345678";
 
         String department =
                 AppConstants.DEFAULT_DEPARTMENT;
 
         String office =
                 AppConstants.DEFAULT_OFFICE;
+
+        String emailLogin = "deepikajoe99@gmail.com";
+        String passwordLogin = "Test@12345678";
 
         return new UserData(
                 employeeId,
@@ -46,7 +49,9 @@ public class TestDataGenerator {
                 phone,
                 password,
                 department,
-                office
+                office,
+                emailLogin,
+                passwordLogin
         );
     }
 }

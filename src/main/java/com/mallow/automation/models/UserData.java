@@ -9,6 +9,8 @@ public class UserData {
     private final String password;
     private final String department;
     private final String office;
+    private final String emailLogin;
+    private final String passwordLogin;
 
     public UserData(
             String employeeId,
@@ -17,7 +19,9 @@ public class UserData {
             String phone,
             String password,
             String department,
-            String office
+            String office,
+            String emailLogin,
+            String passwordLogin
     ) {
 
         this.employeeId = employeeId;
@@ -27,6 +31,8 @@ public class UserData {
         this.password = password;
         this.department = department;
         this.office = office;
+        this.emailLogin = emailLogin;
+        this.passwordLogin = passwordLogin;
     }
 
     public String getEmployeeId() {
@@ -55,5 +61,13 @@ public class UserData {
 
     public String getOffice() {
         return office;
+    }
+
+    public String getemailLogin() {
+        return emailLogin;
+    }
+
+    public String getpasswordLogin() {
+        return passwordLogin;
     }
 }

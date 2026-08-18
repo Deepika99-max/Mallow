@@ -19,7 +19,10 @@ public class ScheduleCabRideTest extends BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
 
-        CreateAccountPage createAccountPage = loginPage.clickCreateAccount();
+        loginPage.login(user);
+
+//        loginPage.clickCreateAccount();
+        CreateAccountPage createAccountPage = null;
 
         HomePage homePage = createAccountPage.createAccount(user);
 
