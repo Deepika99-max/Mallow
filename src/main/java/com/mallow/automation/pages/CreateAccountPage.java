@@ -1,14 +1,12 @@
 package com.mallow.automation.pages;
 
 import com.mallow.automation.base.BasePage;
-
+import com.mallow.automation.models.UserData;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class CreateAccountPage extends BasePage {
-
-    private final WebDriver driver;
 
     private final By nameField =
             AppiumBy.id("createaccount_name");
@@ -30,11 +28,13 @@ public class CreateAccountPage extends BasePage {
 
     private final By confirmPasswordField =
             AppiumBy.xpath(
-                    "//android.widget.EditText[@resource-id='createaccount_confirm_password_input]"
+                    "//android.widget.EditText[@resource-id='createaccount_confirm_password_input']"
             );
 
     private final By phoneField =
-            AppiumBy.xpath("//android.widget.EditText[@resource-id='createaccount_phone_input']");
+            AppiumBy.xpath(
+                    "//android.widget.EditText[@resource-id='createaccount_phone_input']"
+            );
 
     private final By departmentField =
             AppiumBy.xpath(
@@ -52,68 +52,74 @@ public class CreateAccountPage extends BasePage {
             );
 
     public CreateAccountPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-
     public void enterName(String name) {
-        driver.findElement(nameField).sendKeys(name);
+
+        type(nameField, name);
     }
 
     public void enterEmployeeId(String employeeId) {
-        driver.findElement(employeeIdField).sendKeys(employeeId);
+
+        type(employeeIdField, employeeId);
     }
 
     public void enterEmail(String email) {
-        driver.findElement(emailField).sendKeys(email);
+
+        type(emailField, email);
     }
 
     public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+
+        type(passwordField, password);
     }
 
-    public void enterConfirmPassword(String confirmPassword) {
-        driver.findElement(confirmPasswordField)
-                .sendKeys(confirmPassword);
+    public void enterConfirmPassword(String password) {
+
+        type(confirmPasswordField, password);
     }
 
     public void enterPhone(String phone) {
-        driver.findElement(phoneField).sendKeys(phone);
+
+        type(phoneField, phone);
     }
 
     public void enterDepartment(String department) {
-        driver.findElement(departmentField).sendKeys(department);
+
+        type(departmentField, department);
     }
 
     public void enterOffice(String office) {
-        driver.findElement(officeField).sendKeys(office);
+
+        type(officeField, office);
     }
 
     public void clickCreateAccount() {
-        driver.findElement(createAccountButton).click();
+
+        click(createAccountButton);
     }
 
+    public HomePage createAccount(UserData user) {
 
-    public void createAccount(
-            String name,
-            String employeeId,
-            String email,
-            String password,
-            String confirmPassword,
-            String phone,
-            String department,
-            String office
-    ) {
+        enterName(user.getName());
 
-        enterName(name);
-        enterEmployeeId(employeeId);
-        enterEmail(email);
-        enterPassword(password);
-        enterConfirmPassword(confirmPassword);
-        enterPhone(phone);
-        enterDepartment(department);
-        enterOffice(office);
+        enterEmployeeId(user.getEmployeeId());
+
+        enterEmail(user.getEmail());
+
+        enterPassword(user.getPassword());
+
+        enterConfirmPassword(user.getPassword());
+
+        enterPhone(user.getPhone());
+
+        enterDepartment(user.getDepartment());
+
+        enterOffice(user.getOffice());
 
         clickCreateAccount();
+
+        return new HomePage(driver);
     }
 }

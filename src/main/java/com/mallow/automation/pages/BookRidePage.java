@@ -1,16 +1,13 @@
 package com.mallow.automation.pages;
 
 import com.mallow.automation.base.BasePage;
+import com.mallow.automation.constants.AppConstants;
+import com.mallow.automation.utils.DateUtils;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class BookRidePage extends BasePage {
-
-    private final WebDriver driver;
 
     private final By pickupLocation =
             AppiumBy.id("bookride_pickup_select");
@@ -24,81 +21,111 @@ public class BookRidePage extends BasePage {
     private final By shiftTime =
             AppiumBy.id("bookride_time_select");
 
-    private final By submitButton =
+    /*
+     * IMPORTANT:
+     * Verify this locator using Appium Inspector.
+     */
+    private final By scheduleFutureRide =
             AppiumBy.androidUIAutomator(
-                    "new UiSelector().text(\"Submit\")"
+                    "new UiSelector().textContains(\"Schedule future Ride\")"
+            );
+
+    /*
+     * IMPORTANT:
+     * Verify this locator using Appium Inspector.
+     */
+    private final By confirmBookingButton =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().textContains(\"Confirm Booking\")"
             );
 
     public BookRidePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void selectThirdPickupLocation() {
 
-        driver.findElement(pickupLocation).click();
+        click(pickupLocation);
+
         By thirdLocation =
                 AppiumBy.xpath(
-                        "//android.widget.ScrollView/android.view.View[3]"
+                        "//android.widget.ScrollView/android.view.View["
+                                + AppConstants.PICKUP_LOCATION_INDEX
+                                + "]"
                 );
 
-        driver.findElement(thirdLocation).click();
+        click(thirdLocation);
     }
 
     public void selectFourthDropLocation() {
 
-        driver.findElement(dropLocation).click();
+        click(dropLocation);
+
         By fourthLocation =
                 AppiumBy.xpath(
-                        "//android.widget.ScrollView/android.view.View[4]"
+                        "//android.widget.ScrollView/android.view.View["
+                                + AppConstants.DROP_LOCATION_INDEX
+                                + "]"
                 );
 
-        driver.findElement(fourthLocation).click();
+        click(fourthLocation);
+    }
+
+    public void selectScheduleFutureRide() {
+
+        click(scheduleFutureRide);
     }
 
     public void selectFutureDate() {
 
-        driver.findElement(travelDate).click();
+        click(travelDate);
 
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        String futureDay =
+                DateUtils.getFutureDay();
 
-        String day = String.valueOf(tomorrow.getDayOfMonth());
-
-        By futureDay =
+        By futureDate =
                 AppiumBy.androidUIAutomator(
-                        "new UiSelector().text(\"" + day + "\")"
+                        "new UiSelector().text(\""
+                                + futureDay
+                                + "\")"
                 );
 
-        driver.findElement(futureDay).click();
-
+        click(futureDate);
     }
-
 
     public void selectTime() {
 
-        driver.findElement(shiftTime).click();
+        click(shiftTime);
+
         By timeOption =
-                AppiumBy.androidUIAutomator(
-                        "//android.widget.ScrollView/android.view.View[2]"
+                AppiumBy.xpath(
+                        "//android.widget.ScrollView/android.view.View["
+                                + AppConstants.TIME_OPTION_INDEX
+                                + "]"
                 );
 
-        driver.findElement(timeOption).click();
+        click(timeOption);
     }
 
-    public void submitRide() {
+    public void confirmBooking() {
 
-        driver.findElement(submitButton).click();
+        click(confirmBookingButton);
     }
 
-    public void scheduleFutureRide() {
+    public ConfirmationPage scheduleFutureRide() {
 
         selectThirdPickupLocation();
 
         selectFourthDropLocation();
 
+        selectScheduleFutureRide();
+
         selectFutureDate();
 
         selectTime();
 
-        submitRide();
+        confirmBooking();
+
+        return new ConfirmationPage(driver);
     }
 }

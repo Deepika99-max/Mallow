@@ -10,6 +10,9 @@ public class DriverManager {
 
     private static AndroidDriver driver;
 
+    private DriverManager() {
+    }
+
     public static void initializeDriver() throws MalformedURLException {
 
         UiAutomator2Options options = new UiAutomator2Options();
@@ -18,15 +21,24 @@ public class DriverManager {
         options.setAutomationName("UiAutomator2");
         options.setDeviceName("Android Emulator");
 
-        options.setApp("/Users/nagarjunk/Downloads/app-debug.apk");
+        String appPath = System.getProperty(
+                "app",
+                "/Users/nagarjunk/Downloads/app-debug.apk"
+        );
 
-        options.setAppPackage("com.example.android_automation_app");
+        options.setApp(appPath);
+
+        options.setAppPackage(
+                "com.example.android_automation_app"
+        );
+
         options.setAppActivity(
                 "com.example.android_automation_app.MTMainActivity"
         );
 
         driver = new AndroidDriver(
-                URI.create("http://127.0.0.1:4723").toURL(),
+                URI.create("http://127.0.0.1:4723")
+                        .toURL(),
                 options
         );
     }

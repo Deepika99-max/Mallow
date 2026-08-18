@@ -8,57 +8,70 @@ import org.testng.Assert;
 
 public class ConfirmationPage extends BasePage {
 
-    private final WebDriver driver;
+    /*
+     * Verify these locators in Appium Inspector.
+     */
 
-    // Pickup
-    private final By pickupLocation =
-            AppiumBy.xpath("//android.widget.TextView[@text='Home – Indiranagar']");
+    private final By bookingConfirmation =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().textContains(\"Booking confirmed\")"
+            );
 
-    // Drop
-    private final By dropLocation =
-            AppiumBy.xpath("//android.widget.TextView[@text='Home – Whitefield']");
-
-    // Date + Time
-    private final By rideTime =
-            AppiumBy.xpath("//android.widget.TextView[contains(@text,'Evening')]");
-
+    private final By bookingReference =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().textContains(\"Booking ID\")"
+            );
 
     public ConfirmationPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-
-    public void verifyPickupLocation() {
+    public void verifyBookingConfirmation() {
 
         Assert.assertTrue(
-                driver.findElement(pickupLocation).isDisplayed(),
-                "Pickup location is not displayed"
+                isDisplayed(bookingConfirmation),
+                "Booking confirmation is not displayed"
         );
     }
 
+    public String getBookingReference() {
 
-    public void verifyDropLocation() {
+        String reference =
+                find(bookingReference).getText();
 
-        Assert.assertTrue(
-                driver.findElement(dropLocation).isDisplayed(),
-                "Drop location is not displayed"
+        Assert.assertNotNull(
+                reference,
+                "Booking reference is null"
+        );
+
+        Assert.assertFalse(
+                reference.trim().isEmpty(),
+                "Booking reference is empty"
+        );
+
+        return reference;
+    }
+
+    public void verifyBookingReferenceGenerated() {
+
+        String reference =
+                getBookingReference();
+
+        Assert.assertFalse(
+                reference.trim().isEmpty(),
+                "Booking reference was not generated"
         );
     }
 
+    public void verifyBookingDetails() {
 
-    public void verifyRideTime() {
+        verifyBookingConfirmation();
 
-        Assert.assertTrue(
-                driver.findElement(rideTime).isDisplayed(),
-                "Ride time is not displayed"
-        );
+        verifyBookingReferenceGenerated();
     }
 
+    public void navigateBackToHome() {
 
-    public void verifyRideDetails() {
-
-        verifyPickupLocation();
-        verifyDropLocation();
-        verifyRideTime();
+        driver.navigate().back();
     }
 }
