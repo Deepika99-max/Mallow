@@ -1,10 +1,13 @@
 package com.mallow.automation.pages;
 
 import com.mallow.automation.base.BasePage;
+import com.mallow.automation.driver.PlatformManager;
 import com.mallow.automation.models.UserData;
 import com.mallow.automation.utils.PlatformLocator;
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -39,126 +42,77 @@ public class CreateAccountPage extends BasePage {
     }
 
     public void enterName(String name) {
-
-        type(nameField, name);
+        enter_text(nameField, name);
     }
     public void setEmailID(String name) {
-
-        type(emailID, name);
+        enter_text(emailID, name);
     }
 
     public void setPassword(String name) {
-
-        type(password, name);
+        enter_text(password, name);
     }
 
     public void enterEmployeeId(String employeeId) {
-
-        type(employeeIdField, employeeId);
+        enter_text(employeeIdField, employeeId);
     }
 
     public void enterEmail(String email) {
-
-        type(emailField, email);
+        enter_text(emailField, email);
     }
 
     public void enterPassword(String passwordText) {
-
-        click(passwordField);
-
-        WebElement passwordElement = find(passwordField);
-
-        passwordElement.clear();
-        passwordElement.sendKeys(passwordText);
-//
-//        System.out.println("After password sendKeys:");
-//        System.out.println(driver.getPageSource());
+        enter_text(passwordField, passwordText);
+        hideKeyboard();
     }
+    
 
     public void enterConfirmPassword(String passwordText) {
-
-        click(confirmPasswordField);
-
-        WebElement confirmElement = find(confirmPasswordField);
-
-        confirmElement.clear();
-        confirmElement.sendKeys(passwordText);
-//
-//        System.out.println("After confirm password sendKeys:");
-//        System.out.println(driver.getPageSource());
-
+        enter_text(confirmPasswordField, passwordText);
+        hideKeyboard();
     }
-//    public void enterPassword(String password) {
-//
-////        type(passwordField, password);
-//        click(passwordField);
-//
-//        WebElement element = find(passwordField);
-//        element.clear();
-//
-//        element.sendKeys(password);
-//
-//        hideKeyboard();
-//
-//    }
-//
-//    public void enterConfirmPassword(String password) {
-//
-////        type(confirmPasswordField, password);
-//        click(confirmPasswordField);
-//
-//        WebElement element = find(confirmPasswordField);
-//        element.clear();
-//
-//        element.sendKeys(password);
-//        hideKeyboard();
-//    }
 
     public void enterPhone(String phone) {
-
-        type(phoneField, phone);
+        enter_text(phoneField, phone);
         hideKeyboard();
     }
 
     public void enterDepartment(String department) {
-
-        type(departmentField, department);
+        enter_text(departmentField, department);
         hideKeyboard();
     }
 
     public void enterOffice(String office) {
-
-        type(officeField, office);
+        enter_text(officeField, office);
         hideKeyboard();
     }
-    public void clickCreateAccount() {
 
+    public void clickCreateAccount() {
         click(createAccountButton);
     }
-    public void clickLogin() {
 
+    public void clickLogin() {
         click(getLogin);
     }
 
     public HomePage createAccount(UserData user) {
-//
-//        enterName(user.getName());
-//
-//        enterEmployeeId(user.getEmployeeId());
-//
-//        enterEmail(user.getEmail());
-//
-//        enterPassword(user.getPassword());
-//
-//        enterConfirmPassword(user.getPassword());
-//
-//        enterPhone(user.getPhone());
-//
-//        enterDepartment(user.getDepartment());
-//
-//        enterOffice(user.getOffice());
-//
-//        clickCreateAccount();
+
+        enterName(user.getName());
+
+        enterEmployeeId(user.getEmployeeId());
+
+        enterEmail(user.getEmail());
+
+        enterPassword(user.getPassword());
+
+        enterConfirmPassword(user.getPassword());
+
+        enterPhone(user.getPhone());
+
+        enterDepartment(user.getDepartment());
+
+        enterOffice(user.getOffice());
+
+        clickCreateAccount();
 
         return new HomePage(driver);
     }

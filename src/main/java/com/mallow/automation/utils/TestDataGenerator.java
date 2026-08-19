@@ -31,7 +31,7 @@ public class TestDataGenerator {
                         System.currentTimeMillis()
                 ).substring(3);
 
-        String password = "Test@12345678";
+        String password = "Test1234";
 
         String department =
                 AppConstants.DEFAULT_DEPARTMENT;
@@ -39,8 +39,8 @@ public class TestDataGenerator {
         String office =
                 AppConstants.DEFAULT_OFFICE;
 
-        String emailLogin = "deepikajoe99@gmail.com";
-        String passwordLogin = "Test@12345678";
+        String emailLogin = "dd1@gmail.com";
+        String passwordLogin = "@2Success";
 
         return new UserData(
                 employeeId,

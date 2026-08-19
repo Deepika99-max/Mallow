@@ -7,7 +7,6 @@ import com.mallow.automation.pages.CreateAccountPage;
 import com.mallow.automation.pages.HomePage;
 import com.mallow.automation.pages.LoginPage;
 import com.mallow.automation.utils.TestDataGenerator;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ScheduleCabRideTest extends BaseTest {
@@ -19,10 +18,9 @@ public class ScheduleCabRideTest extends BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
 
-        loginPage.login(user);
+//        loginPage.login(user);
 
-//        loginPage.clickCreateAccount();
-        CreateAccountPage createAccountPage = null;
+        CreateAccountPage createAccountPage = loginPage.clickCreateAccount();
 
         HomePage homePage = createAccountPage.createAccount(user);
 

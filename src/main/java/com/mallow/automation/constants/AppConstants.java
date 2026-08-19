@@ -18,5 +18,5 @@ public final class AppConstants {
             "Engineering";
 
     public static final String DEFAULT_OFFICE =
-            "Bangalore";
+            "Coimbatore";
 }

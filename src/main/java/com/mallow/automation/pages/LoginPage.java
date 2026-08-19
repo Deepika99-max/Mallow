@@ -23,12 +23,12 @@ public class LoginPage extends BasePage {
 
     public void enterEmail(String email) {
 
-        type(emailField, email);
+        enter_text(emailField, email);
     }
 
     public void enterPassword(String password) {
 
-        type(passwordField, password);
+        enter_text(passwordField, password);
     }
 
     public void clickLogin() {

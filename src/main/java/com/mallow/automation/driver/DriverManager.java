@@ -21,31 +21,13 @@ public class DriverManager {
     }
 
     public static void initializeDriver() throws MalformedURLException {
-        String platform =
-                ConfigReader.get("platform");
+        String platform = ConfigReader.get("platform");
 
         if (platform.equalsIgnoreCase("ios")) {
-
             initializeIOSDriver();
-
         } else {
-
             initializeAndroidDriver();
         }
-//
-//        String platform =
-//                System.getProperty("platform", "android")
-//                        .toLowerCase();
-//
-//        if ("ios".equals(platform)) {
-//
-//            initializeIOSDriver();
-//
-//        } else {
-//
-//            initializeAndroidDriver();
-//        }
-
     }
 
     private static void initializeAndroidDriver()
@@ -60,59 +42,36 @@ public class DriverManager {
 
         options.setDeviceName("Android Emulator");
 
-        options.setApp(
-                ConfigReader.get("android.app.path")
-        );
+        options.setApp(ConfigReader.get("android.app.path"));
 
-        options.setAppPackage(
-                ConfigReader.get("android.app.package")
-        );
+        options.setAppPackage(ConfigReader.get("android.app.package"));
 
-        options.setAppActivity(
-                ConfigReader.get("android.app.activity")
-        );
+        options.setAppActivity(ConfigReader.get("android.app.activity"));
 
-        driver =
-                new AndroidDriver(
-                        URI.create(
-                                "http://127.0.0.1:4723"
-                        ).toURL(),
-                        options
-                );
+        driver = new AndroidDriver(URI.create("http://127.0.0.1:4723").toURL(), options);
+
     }
+
     private static void initializeIOSDriver()
             throws MalformedURLException {
 
-        XCUITestOptions options =
-                new XCUITestOptions();
+        XCUITestOptions options = new XCUITestOptions();
 
         options.setPlatformName("iOS");
 
         options.setAutomationName("XCUITest");
 
-        options.setDeviceName(
-                ConfigReader.get("ios.device.name")
-        );
+        options.setDeviceName(ConfigReader.get("ios.device.name"));
 
-        options.setPlatformVersion(
-                ConfigReader.get("ios.platform.version")
-        );
+        options.setPlatformVersion(ConfigReader.get("ios.platform.version"));
 
-        options.setUdid(
-                ConfigReader.get("ios.udid")
-        );
+        options.setUdid(ConfigReader.get("ios.udid"));
 
-        options.setBundleId(
-                ConfigReader.get("ios.bundle.id")
-        );
+        options.setBundleId(ConfigReader.get("ios.bundle.id"));
 
-        driver =
-                new IOSDriver(
-                        URI.create(
-                                "http://127.0.0.1:4723"
-                        ).toURL(),
-                        options
-                );
+        options.setCapability("appium:autoFillPasswords", false);
+
+        driver = new IOSDriver(URI.create("http://127.0.0.1:4723").toURL(), options );
     }
 
     public static AppiumDriver getDriver() {
@@ -122,9 +81,7 @@ public class DriverManager {
     public static void quitDriver() {
 
         if (driver != null) {
-
             driver.quit();
-
             driver = null;
         }
     }
